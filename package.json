@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "serve dist -l 5173",
     "start": "npm run dev",
-    "build": "node download-site.js"
+    "build": "node download-site.js",
+    "seo": "node seo/generate-seo.js"
   },
   "devDependencies": {
     "serve": "^14.2.4"

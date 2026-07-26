@@ -3,6 +3,16 @@
   command = "npm run build"
 
 [[redirects]]
+  from = "/lincoln"
+  to = "/lincoln/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/kearney"
+  to = "/kearney/index.html"
+  status = 200
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200

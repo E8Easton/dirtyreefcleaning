@@ -25,6 +25,24 @@ Connect the GitHub repo in the Netlify dashboard and set the custom domain when 
 
 **Live preview:** https://dirtyreefcleaning-reef.netlify.app
 
+## SEO
+
+Every `npm run build` regenerates:
+
+- **Per-page titles & meta descriptions** for `/`, `/lincoln`, and `/kearney` (see `seo/site-config.js`)
+- **JSON-LD** (`CleaningService`, `WebSite`, `FAQPage`, breadcrumbs, service catalog)
+- **`/sitemap.xml`** and **`/robots.txt`**
+- **`seo-head.js`** — keeps title/canonical in sync when the SPA changes routes
+
+After deploy, in [Google Search Console](https://search.google.com/search-console):
+
+1. Add property `https://dirtyreefcleaning.com`
+2. Submit sitemap: `https://dirtyreefcleaning.com/sitemap.xml`
+3. Request indexing for `/`, `/lincoln`, and `/kearney`
+4. Match **Google Business Profile** name, phone `(402) 235-6046`, and service areas to the site
+
+Validate structured data: [Rich Results Test](https://search.google.com/test/rich-results)
+
 ## Supabase (backend)
 
 Contact form and lead storage will use Supabase. See `supabase/migrations/` and `.env.example`.
