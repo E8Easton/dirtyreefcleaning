@@ -5,6 +5,6 @@ node_modules/
 !.env.example
 *.local
 extract-*.js
-index-BsA_WY1o.js
-index-pBWu_KKI.css
-index-BsA_WY1o.js.map
+/index-BsA_WY1o.js
+/index-pBWu_KKI.css
+/index-BsA_WY1o.js.map
