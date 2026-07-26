@@ -19,6 +19,12 @@ Open [http://localhost:5173](http://localhost:5173).
 
 Connect the GitHub repo in the Netlify dashboard and set the custom domain when ready to cut over from Replit.
 
+1. [Netlify → dirtyreefcleaning-reef](https://app.netlify.com/projects/dirtyreefcleaning-reef) → **Project configuration** → **Build & deploy** → **Link repository** → choose `E8Easton/dirtyreefcleaning`.
+2. Build settings (already in repo): command `npm run build`, publish `dist`.
+3. When ready to go live on your domain: **Domain management** → add `dirtyreefcleaning.com` → update DNS at your registrar → remove the custom domain from Replit.
+
+**Live preview:** https://dirtyreefcleaning-reef.netlify.app
+
 ## Supabase (backend)
 
 Contact form and lead storage will use Supabase. See `supabase/migrations/` and `.env.example`.
