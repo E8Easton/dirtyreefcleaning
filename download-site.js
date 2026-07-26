@@ -55,8 +55,7 @@ function download(url, dest) {
   }
 
   await download(`${BASE}/favicon.svg`, path.join(__dirname, "dist", "favicon.svg"));
-  require("./seo/generate-seo.js");
-  console.log("done");
+  console.log("Assets synced from live site. Run: npm run build");
 })().catch((e) => {
   console.error(e);
   process.exit(1);

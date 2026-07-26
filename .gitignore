@@ -1,5 +1,6 @@
 node_modules/
 .netlify/
+dist/reef-config.js
 .DS_Store
 .env
 .env.*

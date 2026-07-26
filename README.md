@@ -1,63 +1,53 @@
-# Reef Cleaning (dirtyreefcleaning.com)
+# Reef Cleaning — dirtyreefcleaning.com
 
-Production build mirror of the Reef Cleaning marketing site (Vite + React SPA originally deployed on Replit).
+**Stack:** GitHub → Netlify (hosting) · Supabase (quote storage) · EmailJS (inbox alerts)  
+**No Replit.** See [docs/MIGRATION-FROM-REPLIT.md](docs/MIGRATION-FROM-REPLIT.md).
 
 ## Local development
 
 ```bash
 npm install
-npm run dev
+npm run build          # config, forms patch, SEO HTML
+npm run dev            # http://localhost:5173 (forms need netlify dev for email fallback)
+npm run dev:netlify    # functions + env (recommended for testing quotes)
 ```
 
-Open [http://localhost:5173](http://localhost:5173).
+## Quote forms
+
+Lincoln & Kearney quote forms:
+
+1. Save to Supabase `contact_submissions`
+2. Email **lincoln@dirtyreefcleaning.com** via EmailJS
+
+Setup: [docs/EMAILJS.md](docs/EMAILJS.md)
 
 ## Deploy (Netlify)
 
-- **Build command:** `npm run build` (refreshes assets from live site)
-- **Publish directory:** `dist`
-- SPA routing is configured in `netlify.toml`.
-
-Connect the GitHub repo in the Netlify dashboard and set the custom domain when ready to cut over from Replit.
-
-1. [Netlify → dirtyreefcleaning-reef](https://app.netlify.com/projects/dirtyreefcleaning-reef) → **Project configuration** → **Build & deploy** → **Link repository** → choose `E8Easton/dirtyreefcleaning`.
-2. Build settings (already in repo): command `npm run build`, publish `dist`.
-3. When ready to go live on your domain: **Domain management** → add `dirtyreefcleaning.com` → update DNS at your registrar → remove the custom domain from Replit.
+- **Build:** `npm run build`
+- **Publish:** `dist`
+- Set env vars from `.env.example` in Netlify dashboard
+- Link GitHub repo for auto-deploy
+- Point **dirtyreefcleaning.com** DNS to Netlify; remove domain from Replit
 
 **Live preview:** https://dirtyreefcleaning-reef.netlify.app
 
 ## SEO
 
-Every `npm run build` regenerates:
+Per-route titles, JSON-LD, sitemap — see `seo/site-config.js`. After deploy, submit sitemap in Google Search Console.
 
-- **Per-page titles & meta descriptions** for `/`, `/lincoln`, and `/kearney` (see `seo/site-config.js`)
-- **JSON-LD** (`CleaningService`, `WebSite`, `FAQPage`, breadcrumbs, service catalog)
-- **`/sitemap.xml`** and **`/robots.txt`**
-- **`seo-head.js`** — keeps title/canonical in sync when the SPA changes routes
+## Optional: refresh assets from old live URL
 
-After deploy, in [Google Search Console](https://search.google.com/search-console):
+```bash
+npm run sync:live   # only if you still need to pull images/JS from the previous host
+npm run build
+```
 
-1. Add property `https://dirtyreefcleaning.com`
-2. Submit sitemap: `https://dirtyreefcleaning.com/sitemap.xml`
-3. Request indexing for `/`, `/lincoln`, and `/kearney`
-4. Match **Google Business Profile** name, phone `(402) 235-6046`, and service areas to the site
+## Repo layout
 
-Validate structured data: [Rich Results Test](https://search.google.com/test/rich-results)
-
-## Supabase (backend)
-
-Contact form and lead storage will use Supabase. See `supabase/migrations/` and `.env.example`.
-
-After creating a Supabase project:
-
-1. Copy `.env.example` to `.env` and fill in URL + anon key.
-2. Run migrations: `supabase db push` (with [Supabase CLI](https://supabase.com/docs/guides/local-development) linked to your project).
-
-## Routes
-
-- `/` — Home
-- `/lincoln` — Lincoln location
-- `/kearney` — Kearney location
-
-## Note on source code
-
-This repo contains the **compiled** frontend from the live site. Editable React/TypeScript source lives in the original Replit project; export that from Replit to replace `dist/` with a full Vite source tree when you are ready to maintain components directly.
+| Path | Purpose |
+|------|---------|
+| `dist/` | Static site served by Netlify |
+| `seo/` | SEO generator |
+| `scripts/` | Form patch, Supabase/EmailJS config |
+| `netlify/functions/` | Email fallback API |
+| `supabase/migrations/` | Run in Supabase SQL editor |
