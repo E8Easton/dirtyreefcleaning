@@ -1,0 +1,14 @@
+{
+  "name": "dirtyreefcleaning",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Reef Cleaning — Lincoln & Kearney (mirrored from production build)",
+  "scripts": {
+    "dev": "serve dist -l 5173",
+    "start": "npm run dev",
+    "build": "node download-site.js"
+  },
+  "devDependencies": {
+    "serve": "^14.2.4"
+  }
+}
