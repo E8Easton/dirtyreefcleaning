@@ -22,6 +22,22 @@ function buildJsonLd(page) {
     logo: absUrl(SITE.logo),
     description: SITE.tagline,
     priceRange: "$$",
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: SITE.phone,
+      contactType: "customer service",
+      email: SITE.email,
+      areaServed: ["US-NE"],
+      availableLanguage: ["English"],
+    },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        opens: "08:00",
+        closes: "18:00",
+      },
+    ],
     areaServed: [
       {
         "@type": "City",
@@ -204,8 +220,7 @@ function buildHtml(page) {
     <meta name="googlebot" content="index, follow" />
     <meta name="geo.region" content="US-NE" />
     <meta name="geo.placename" content="${page.path === "/kearney" ? "Kearney" : page.path === "/lincoln" ? "Lincoln" : "Lincoln; Kearney"}, Nebraska" />
-    <link rel="canonical" href="${canonical}" />
-    <link rel="sitemap" type="application/xml" title="Sitemap" href="${absUrl("/sitemap.xml")}" />
+    <meta name="format-detection" content="telephone=yes" />
     <link rel="alternate" hreflang="en-us" href="${canonical}" />
     <link rel="alternate" hreflang="x-default" href="${absUrl("/")}" />
     <meta property="og:locale" content="en_US" />
@@ -221,17 +236,27 @@ function buildHtml(page) {
     <meta name="twitter:description" content="${page.description}" />
     <meta name="twitter:image" content="${ogImage}" />
     <meta name="theme-color" content="#F55648" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="${absUrl(SITE.logo)}" />
+    <link rel="canonical" href="${canonical}" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="${absUrl("/sitemap.xml")}" />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="preload" href="/assets/index-pBWu_KKI.css" as="style" />
+    <link rel="modulepreload" href="/assets/index-BsA_WY1o.js" crossorigin />
+    <link rel="preload" href="${ogImage}" as="image" type="image/webp" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" /></noscript>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="${absUrl(SITE.logo)}" />
     <script type="application/ld+json">${jsonLd}</script>
-    <script src="/reef-config.js"></script>
-    <script src="/form-bridge.js"></script>
+    <script src="/reef-config.js" defer></script>
+    <script src="/form-bridge.js" defer></script>
+    <script src="/perf.js" defer></script>
     <script src="/seo-head.js" defer></script>
-    <script type="module" crossorigin src="/assets/index-BsA_WY1o.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-pBWu_KKI.css" />
+    <script type="module" crossorigin src="/assets/index-BsA_WY1o.js"></script>
   </head>
   <body>
     <div id="root"></div>
@@ -367,9 +392,31 @@ function writeHeaders(distDir) {
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
 
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/reef-config.js
+  Cache-Control: public, max-age=300, must-revalidate
+
+/form-bridge.js
+  Cache-Control: public, max-age=86400
+
+/perf.js
+  Cache-Control: public, max-age=86400
+
+/seo-head.js
+  Cache-Control: public, max-age=86400
+
+/site.webmanifest
+  Cache-Control: public, max-age=86400
 
 /sitemap.xml
   Cache-Control: public, max-age=3600
@@ -378,6 +425,53 @@ function writeHeaders(distDir) {
   Cache-Control: public, max-age=3600
 `;
   fs.writeFileSync(path.join(distDir, "_headers"), headers);
+}
+
+function writeManifest(distDir) {
+  const manifest = {
+    name: SITE.name,
+    short_name: "Reef Cleaning",
+    description: SITE.tagline,
+    start_url: "/",
+    display: "standalone",
+    background_color: "#fffaf9",
+    theme_color: "#F55648",
+    lang: "en-US",
+    icons: [
+      {
+        src: absUrl(SITE.logo),
+        sizes: "512x512",
+        type: "image/webp",
+      },
+      {
+        src: absUrl("/favicon.svg"),
+        sizes: "any",
+        type: "image/svg+xml",
+      },
+    ],
+  };
+  fs.writeFileSync(
+    path.join(distDir, "site.webmanifest"),
+    JSON.stringify(manifest, null, 2),
+    "utf8"
+  );
+}
+
+function write404(distDir) {
+  const html = `<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content="0;url=/" />
+    <title>Reef Cleaning</title>
+    <link rel="canonical" href="${absUrl("/")}" />
+  </head>
+  <body>
+    <p><a href="/">Return to Reef Cleaning</a></p>
+  </body>
+</html>
+`;
+  fs.writeFileSync(path.join(distDir, "404.html"), html, "utf8");
 }
 
 function main() {
@@ -399,6 +493,8 @@ function main() {
   writeRobots(distDir);
   writeSitemap(distDir);
   writeHeaders(distDir);
+  writeManifest(distDir);
+  write404(distDir);
   console.log("SEO: generated HTML, sitemap, robots, seo-head.js for", PAGES.length, "pages");
 }
 

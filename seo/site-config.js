@@ -7,8 +7,8 @@ const SITE = {
   phone: "+1-402-235-6046",
   phoneDisplay: "(402) 235-6046",
   email: "lincoln@dirtyreefcleaning.com",
-  logo: "/assets/0_Logo_sobre_asesor_financiero_abstracto_verde_y_negro_(1)_1785021540239-DavXeRxF.png",
-  ogImage: "/assets/1_reef_cleaning_truck_1785021570012-DQ92KwYj.png",
+  logo: "/assets/0_Logo_sobre_asesor_financiero_abstracto_verde_y_negro_(1)_1785021540239-DavXeRxF.webp",
+  ogImage: "/assets/1_reef_cleaning_truck_1785021570012-DQ92KwYj.webp",
   tagline: "Lincoln & Kearney's trusted residential and commercial cleaning company",
   locales: {
     lincoln: {

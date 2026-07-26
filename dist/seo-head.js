@@ -1,6 +1,6 @@
 (function () {
   var PAGES = [{"path":"/","title":"House & Office Cleaning Lincoln & Kearney NE | Reef Cleaning","description":"Reef Cleaning — Lincoln & Kearney's trusted cleaners. Residential, commercial, deep, move-in/out cleaning & subscription plans. Call (402) 235-6046 for a free quote.","canonical":"https://dirtyreefcleaning.com/"},{"path":"/lincoln","title":"House Cleaning Lincoln NE | Commercial & Deep Clean | Reef Cleaning","description":"Top-rated house & office cleaning in Lincoln, Nebraska — South, North, East & West Lincoln. Deep clean, move-out, subscriptions. Free quote: (402) 235-6046.","canonical":"https://dirtyreefcleaning.com/lincoln"},{"path":"/kearney","title":"House Cleaning Kearney NE | Office & Move-Out Clean | Reef Cleaning","description":"Professional cleaning in Kearney, NE — Central, Downtown & all neighborhoods. Residential, commercial, move-out & subscription plans. Free quote: (402) 235-6046.","canonical":"https://dirtyreefcleaning.com/kearney"}];
-  var OG_IMAGE = "https://dirtyreefcleaning.com/assets/1_reef_cleaning_truck_1785021570012-DQ92KwYj.png";
+  var OG_IMAGE = "https://dirtyreefcleaning.com/assets/1_reef_cleaning_truck_1785021570012-DQ92KwYj.webp";
 
   function setMeta(attr, key, value) {
     if (!value) return;

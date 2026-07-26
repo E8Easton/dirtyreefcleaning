@@ -1,0 +1,22 @@
+{
+  "name": "Reef Cleaning",
+  "short_name": "Reef Cleaning",
+  "description": "Lincoln & Kearney's trusted residential and commercial cleaning company",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fffaf9",
+  "theme_color": "#F55648",
+  "lang": "en-US",
+  "icons": [
+    {
+      "src": "https://dirtyreefcleaning.com/assets/0_Logo_sobre_asesor_financiero_abstracto_verde_y_negro_(1)_1785021540239-DavXeRxF.webp",
+      "sizes": "512x512",
+      "type": "image/webp"
+    },
+    {
+      "src": "https://dirtyreefcleaning.com/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

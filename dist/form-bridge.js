@@ -102,8 +102,26 @@
 
   window.ReefCleaning = {
     submitQuote: async function (location, data) {
-      await saveToSupabase(location, data);
-      await sendEmail(location, data);
+      var saved = false;
+      try {
+        await saveToSupabase(location, data);
+        saved = true;
+      } catch (e) {
+        console.error(e);
+        throw new Error(
+          "We couldn't save your request. Please call (402) 235-6046 or email lincoln@dirtyreefcleaning.com."
+        );
+      }
+      try {
+        await sendEmail(location, data);
+      } catch (e) {
+        console.error(e);
+        if (saved) {
+          console.warn("Quote saved; email notification failed.");
+        } else {
+          throw e;
+        }
+      }
     },
   };
 })();
