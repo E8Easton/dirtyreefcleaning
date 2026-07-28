@@ -29,7 +29,9 @@ Setup: [docs/EMAILJS.md](docs/EMAILJS.md)
 - Link GitHub repo for auto-deploy
 - Point **dirtyreefcleaning.com** DNS to Netlify; remove domain from Replit
 
-**Live preview:** https://dirtyreefcleaning-reef.netlify.app
+**Live preview:** https://dirtyreefcleaning-reef.netlify.app  
+
+**Full stack audit:** [docs/STACK-AUDIT.md](docs/STACK-AUDIT.md) — if `dirtyreefcleaning.com` shows 404, fix DNS (A → `75.2.60.5`, CNAME `www` → `dirtyreefcleaning-reef.netlify.app`) and add the domain in Netlify.
 
 ## SEO
 

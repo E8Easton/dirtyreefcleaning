@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const https = require("https");
 
-const BASE = "https://dirtyreefcleaning.com";
+const BASE = process.env.SYNC_BASE_URL || "https://dirtyreefcleaning-reef.netlify.app";
 const OUT = path.join(__dirname, "dist", "assets");
 fs.mkdirSync(OUT, { recursive: true });
 
